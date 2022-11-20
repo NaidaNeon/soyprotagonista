@@ -22,12 +22,12 @@ def sets(request):
     return render(request, 'soytemplates/sets.html', {'menu': menu, 'title': 'Настройки'})  #функция для отобажения отдельной страницы Настройки 
 
 
-# def study(request, study_id):       # с указанием ID обучения (1, 2, 3)
-#     return HttpResponse(f"<h2>Обучение</h2><p>{study_id}</p>")
+def study(request, study_id):       # с указанием ID обучения (1, 2, 3)
+    return HttpResponse(f"<h2>Обучение</h2><p>{study_id}</p>")
 
-# def chat(request, chat_type):        # с указанием типа чата (HR, accountant)
-#     return HttpResponse(f"<h2>Чаты</h2><p>{chat_type}</p>")
+def chat(request, chat_type):        # с указанием типа чата (HR, accountant)
+    return HttpResponse(f"<h2>Чаты</h2><p>{chat_type}</p>")
 
-# def sets(request, set_type):
-#     return HttpResponse(f"<h2>Настройки</h2><p>{set_type}</p>")
+def sets(request, set_type):
+    return HttpResponse(f"<h2>Настройки</h2><p>{set_type}</p>")
 
