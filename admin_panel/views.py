@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseNotFound
 from django.shortcuts import render, redirect
 from .models import *
 
@@ -21,7 +21,6 @@ def study(request):
 def sets(request):
     return render(request, 'soytemplates/sets.html', {'menu': menu, 'title': 'Настройки'})  #функция для отобажения отдельной страницы Настройки 
 
-
 # def study(request, study_id):       # с указанием ID обучения (1, 2, 3)
 #     return HttpResponse(f"<h2>Обучение</h2><p>{study_id}</p>")
 
@@ -31,3 +30,5 @@ def sets(request):
 # def sets(request, set_type):
     # return HttpResponse(f"<h2>Настройки</h2><p>{set_type}</p>")
 
+def pageNotFound(request, exception):
+    return HttpResponseNotFound('<h1>Страница не найдена</h1><p>Попробуйте ввести запрос снова</p>')
