@@ -3,11 +3,23 @@ from django.shortcuts import render, redirect
 from .models import *
 
 # Create your views here.
-menu = ['Статистика', 'Обучение', 'Настройки', 'О сайте/Контакты']
+menu = [{'title': 'Главная страница', 'url_name': 'home'},
+        {'title': 'Статистика', 'url_name': 'statistics'},
+        {'title': 'Обучение', 'url_name': 'studies'},
+        {'title': 'Настройки', 'url_name': 'sets'},
+        {'title': 'О сайте/Контакты', 'url_name': 'about'},
+        {'title': 'Войти', 'url_name': 'login'}
+        ]
 
 def main(request):
     posts = Admin_Panel.objects.all()
-    return render(request, 'soytemplates/main.html', {'posts': posts, 'menu': menu, 'title': 'Главная страница'})
+    context = {
+        'posts': posts, 
+        'menu': menu, 
+        'title': 'Главная страница'
+    }
+
+    return render(request, 'soytemplates/main.html', context=context)
 
 def chats(request):
     return render(request, 'soytemplates/chats.html', {'menu': menu, 'title': 'Чаты'})  #функция для отобажения отдельной страницы Чаты 
@@ -19,16 +31,18 @@ def study(request):
     return render(request, 'soytemplates/study.html', {'menu': menu, 'title': 'Обучение'})  #функция для отобажения отдельной страницы Обучение 
 
 def sets(request):
-    return render(request, 'soytemplates/sets.html', {'menu': menu, 'title': 'Настройки'})  #функция для отобажения отдельной страницы Настройки 
+    return render(request, 'soytemplates/sets.html', {'menu': menu, 'title': 'Настройки'}) 
 
-# def study(request, study_id):       # с указанием ID обучения (1, 2, 3)
-#     return HttpResponse(f"<h2>Обучение</h2><p>{study_id}</p>")
+def about(request):
+    return HttpResponse("О сайте/Контакты")     #добавить отдельную страницу или так? //показать как работает
 
-# def chat(request, chat_type):        # с указанием типа чата (HR, accountant)
-#     return HttpResponse(f"<h2>Чаты</h2><p>{chat_type}</p>")
+def login(request):
+    return HttpResponse("Авторизация")
 
-# def sets(request, set_type):
-    # return HttpResponse(f"<h2>Настройки</h2><p>{set_type}</p>")
+
 
 def pageNotFound(request, exception):
     return HttpResponseNotFound('<h1>Страница не найдена</h1><p>Попробуйте ввести запрос снова</p>')
+
+def spisok(request, employee_id):
+    return HttpResponse(f"Список сотрудников c id = {employee_id} и информация о них или же список курсов c id = {employee_id}")

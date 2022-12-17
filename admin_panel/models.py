@@ -16,7 +16,7 @@ class Admin_Panel(models.Model):
         return self.title
         
     def get_absolute_url(self):
-        return reverse('post', kwargs={'post_id': self.pk})
+        return reverse('employee', kwargs={'employee_id': self.pk})
 
     class Meta:
         verbose_name = 'List of employees'
