@@ -11,4 +11,6 @@ urlpatterns = [
     path('login/', login, name='login'),
     path('about/', about, name='about'),
     path('employee/<int:employee_id>/', spisok, name='employee'), #go to certain employee or course
+    path('category/<int:cat_id>/', show_category, name='category'), #go to certain employee or course
+
 ]

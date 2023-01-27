@@ -13,10 +13,14 @@ menu = [{'title': 'Главная страница', 'url_name': 'home'},
 
 def main(request):
     posts = Admin_Panel.objects.all()
+    cats = Category.objects.all()
+
     context = {
         'posts': posts, 
+        'cats': cats, 
         'menu': menu, 
-        'title': 'Главная страница'
+        'title': 'Главная страница',
+        'cat_selected': 0, 
     }
 
     return render(request, 'soytemplates/main.html', context=context)
@@ -46,3 +50,17 @@ def pageNotFound(request, exception):
 
 def spisok(request, employee_id):
     return HttpResponse(f"Список сотрудников c id = {employee_id} и информация о них или же список курсов c id = {employee_id}")
+
+def show_category(request, cat_id):
+    posts = Admin_Panel.objects.filter(cat_id=cat_id)
+    cats = Category.objects.all()
+
+    context = {
+        'posts': posts, 
+        'cats': cats, 
+        'menu': menu, 
+        'title': 'Виды обучения',
+        'cat_selected': cat_id, 
+    }
+
+    return render(request, 'soytemplates/main.html', context=context)
