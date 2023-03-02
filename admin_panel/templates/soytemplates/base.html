@@ -1,4 +1,5 @@
 {% load static %}
+{% load soy_tags  %}
 
 <!DOCTYPE html>
 <html>
@@ -16,11 +17,13 @@
 		<div class="header">
 			<ul id="mainmenu" class="mainmenu">
 			<li class="logo"><a href="{% url 'home' %}"><div class="logo"></div></a></li>
-{% for m in menu %}
+			<li class="right-chapters"><a href="{% url 'login' %}"><div class="right-chapters"></div></a></li>
+
+			{% for h in head %}
 	{% if not forloop.last %}
-			<li><a href="{% url m.url_name %}">{{m.title}}</a></li>
+			<li><a href="{% url h.url_name %}">{{h.title}}</a></li>	
 	{% else %}
-			<li class="last"><a href="{% url m.url_name %}">{{m.title}}</a></li>
+			<li class="last"><a href="{% url h.url_name %}">{{h.title}}</a></li>
 	{% endif %}
 {% endfor %}
 			</ul>
@@ -34,24 +37,31 @@
 <!-- Sidebar слева -->
 	<td valign="top" class="left-chapters">
 	<ul id="leftchapters">
-{% if cat_selected == 0 %}
-		<li class="selected">Прогресс по обучению</li>
-{% else %}
-		<li><a href="{% url 'home' %}">Прогресс по обучению</a></li>
-{% endif %}
 
-{% for c in cats %}
-	{% if c.pk == cat_selected %}
-		<li class="selected">{{c.name}}</li>
+{% for m in menu %}
+	{% if not forloop.last %}
+			<li><a href="{% url m.url_name %}">{{m.title}}</a></li>	
 	{% else %}
-		<li><a href="{{ c.get_absolute_url }}">{{c.name}}</a></li>
+			<li class="last"><a href="{% url m.url_name %}">{{m.title}}</a></li>
 	{% endif %}
 {% endfor %}
-		
+
+<!-- sidebar для меню суперюзера-hr -->
+<!--{% for r in hr_menu %}            
+	{% if not forloop.last %}
+			<li><a href="{% url r.url_name %}">{{r.title}}</a></li>
+	{% else %}
+			<li class="last"><a href="{% url r.url_name %}">{{r.title}}</a></li>
+	{% endif %}
+{% endfor %} -->
+
 		<li class="share">
 		<p>Наш канал в Discord</p>
-        <!-- вставить share-yt для отображения иконки, спросить у Зарины как это делается -->
-		<a class="share-yt" href="https://discord.gg/n5QZp5Wb" target="_blank" rel="nofollow"></a> 
+		<img src="..\images\share-yt.png">
+		
+        <!-- вставить share-yt, как это делается 
+		<a class="share-yt" href="https://discord.gg/n5QZp5Wb" target="_blank" rel="nofollow"></a> -->
+		<a target="_blank" href="https://discord.gg/n5QZp5Wb"><button>Перейти в Дискорд</button></a>
 		</li>
 	</ul>
 </td>

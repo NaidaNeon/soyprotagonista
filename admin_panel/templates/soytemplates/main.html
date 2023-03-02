@@ -5,7 +5,15 @@
 
 <ul class="List-of-employees">  <!-- Кликабельный список сотрудников, заменить на список курсов -->
     {% for p in posts %}
-        <li><h2>{{p.title}}</h2>
+        
+            
+{% if p.photo %}
+    <p><img clas="img-article-left-thumb" src="{{p.photo.url}}"></p>
+{% endif %}
+            <h2>{{p.title}}</h2>
+        <li><div>
+            <p class="first">{{p.cat}}</p>
+        </div>
     {% autoescape on %}
     {{p.content|linebreaks|truncatewords:50}}
     {% endautoescape %}
