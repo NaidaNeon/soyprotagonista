@@ -1,6 +1,9 @@
 from django.http import HttpResponse, HttpResponseNotFound
 from django.shortcuts import get_object_or_404, render, redirect
+from django.views.generic import ListView
+
 from .models import *
+from .forms import *
 
 # Create your views here.
 head = [{'title': 'Добавить сотрудника', 'url_name':'add_employee'},
@@ -21,6 +24,20 @@ menu = [{'title': 'Мои достижения', 'url_name': 'achievements'},
         {'title': 'Узнать больше', 'url_name': 'about'}
         ]
 
+class AdminHome(ListView):
+    model = Admin_Panel
+    template_name = 'soytemplates/main.html'
+    context_object_name = 'posts'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs) 
+        context['head'] = head
+        context['menu'] = menu
+        context['title'] = 'Главная страница'
+        context['cat_selected'] = 0     #должна ссылка в боковом меню выделятьсЯ как текст
+        return context
+
+'''
 def main(request):
     posts = Admin_Panel.objects.all()
 
@@ -33,7 +50,7 @@ def main(request):
     }
 
     return render(request, 'soytemplates/main.html', context=context)
-
+'''
 def achievements(request):
     return render(request, 'soytemplates/achievements.html', {'menu': menu, 'title': 'Достижения'})  #функция для отобажения отдельной страницы Статистика 
 
@@ -50,7 +67,14 @@ def about(request):
     return HttpResponse("Узнать больше")     #добавить отдельную страницу или так? //показать как работает
 
 def addemployee(request):
-    return render(request, 'soytemplates/addemployee.html', {'menu': menu, 'title': 'Добавить нового сотрудника'})  #функция для отобажения отдельной страницы Статистика 
+    if request.method == 'POST':
+        form = AddEmployee(request.POST, request.FILES)
+        if form.is_valid():
+            #print(form.cleaned_data)
+            form.save()
+    else:
+        form = AddEmployee()
+    return render(request, 'soytemplates/addemployee.html', {'form': form, 'menu': menu, 'title': 'Добавить нового сотрудника'})  #функция для отобажения страницы добавить сотрудника 
 
 def login(request):
     return HttpResponse("Авторизация")

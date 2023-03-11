@@ -13,7 +13,7 @@ class Admin_Panel(models.Model):
     login = models.CharField(max_length = 100)
     password = models.CharField(max_length = 36)
     content = models.TextField(blank=False)
-    photo = models.ImageField(upload_to="soyphotos")
+    photo = models.ImageField(upload_to="soyphotos", blank=True)
     cat = models.ForeignKey('Category', on_delete=models.PROTECT, verbose_name='Department')
 
     def __str__(self):
